@@ -1,11 +1,13 @@
 (ns crx.portfolio.ui.style.theme
   (:require
-   #_["@fortawesome/react-fontawesome" :as react-fa]
+   ["@fortawesome/react-fontawesome" :as react-fa]
+   [crx.portfolio.ui.style.font :as font]
+   [crx.portfolio.ui.style.lib :as style.lib]
+   [crx.portfolio.ui.style.proto :as style.proto]
    [garden.selectors :as g.sel]
    [garden.stylesheet :as g.stylesheet]
    [garden.units :as g.units]
-   [crx.portfolio.ui.style.font :as font]
-   [crx.portfolio.ui.style.proto :as style.proto]))
+   [reagent.core :as r]))
 
 (def small-width  (g.units/px 384))
 (def mobile-width (g.units/px 512))
@@ -49,7 +51,9 @@
    {:screen    true
     :max-width tablet-width}))
 
-(def at-media-tablet-strict
+(def at-media-not-desktop at-media-tablet)
+
+(def at-media-only-tablet
   (partial
    g.stylesheet/at-media
    {:screen    true
@@ -91,20 +95,22 @@
 (def text-size-xl text-size-lg)
 (def max-content-width "760px")
 
-;; (def icon
-;;   (r/adapt-react-class react-fa/FontAwesomeIcon))
+(def Icon
+  (r/adapt-react-class react-fa/FontAwesomeIcon))
+
+(defn icon
+  [icon-info]
+  [Icon {:class (style.lib/classes :ui/icon)
+         :icon  icon-info}])
 
 (defmethod style.proto/->styles ::styles
   [_]
   [[:html :body
-    {:color            (=>color ::light-gray)
-     :background-color (=>color ::dark-gray)
-     :font-family      font/stack
-     :font-size        text-size-baseline
-     :font-weight      200
-     :height           "100%"
+    {:height           "100%"
      :margin           0
-     :padding          0}]
+     :padding          0
+     :background-color (=>color ::dark-gray)
+     :color            (=>color ::light-gray)}]
 
    [:p {:margin "0.5em"}]
 
@@ -138,7 +144,7 @@
      :padding-bottom 0}]
 
    [:a :a:visited
-    {:border-bottom   [["2px" :dashed (=>color ::green)]]
+    {:border-bottom   [["1px" :dotted (=>color ::green)]]
      :color           (=>color ::green)
      :cursor          :pointer
      :text-decoration :none}]
@@ -146,10 +152,10 @@
    [:a:hover :a:visited:hover
     {:border-bottom-style :solid}]
 
-   [:hr {:color        (=>color ::white)
-         :border       "1px solid"
-         :border-color (=>color ::white)
-         :width        "100%"}]
+   [:hr
+    {:color  (=>color ::white)
+     :border [["1px" :solid (=>color ::white)]]
+     :width  "100%"}]
 
    [:input
     [(g.stylesheet/at-supports
@@ -159,6 +165,8 @@
       {:-webkit-border-radius 0}
       [:& {:-webkit-border-radius 0
            :border-radius         0}])]]
+
+   [:ui/icon {:margin-right "1ex"}]
 
    [:ui/input
     {:box-sizing    :border-box
@@ -182,18 +190,18 @@
 
    [:button :ui/button-link
     (g.sel/input (g.sel/attr= :type :submit))
-    {:background (=>color ::white)
-     :border     :none
-     :color      :white
-     :cursor     :pointer
-     :font-size  text-size-lg
-     :min-width  "150px"
-     :padding    "7.5px 15px"
-     :text-align "center"
-     :transition "background 150ms ease"
-     :width      "25%"}
+    {:background-color (=>color ::green)
+     :border           "1px solid transparent"
+     :border-radius    "8px"
+     :color            (=>color ::white)
+     :cursor           :pointer
+     :display          :inline-block
+     :font-size        text-size-sm
+     :padding          [["0.5ch" "1.5ch"]]
+     :text-align       :center
+     :transition       "background 150ms ease"}
     [:&:focus {:outline :none}]
-    [:&:hover {:background (=>color ::white) :color :white}]
+    #_[:&:hover {:background (=>color ::white) :color :white}]
     [:&:disabled {:background (=>color ::light-gray) :cursor :not-allowed}]
     [:&:disabled:hover {:background :auto}]]
 
@@ -214,8 +222,9 @@
    [:ui/emphasis   {:font-weight :bolder}]
    [:ui/error      {:color (=>color ::red)}]
    [:ui/hide       {:display :none}]
+   [:ui/show       {:display :inherit}]
    [:ui/italic     {:font-style :italic}]
-   [:ui/loading    {:font-family :monospace}]
+   [:ui/loading    {:font-family font/code-stack}]
    [:ui/text-xs    {:font-size text-size-xs}]
    [:ui/text-sm    {:font-size text-size-sm}]
    [:ui/text-reg   {:font-size text-size-reg}]
@@ -296,32 +305,44 @@
       [:& {:-ms-flex-align "center"}])]]
 
    [:ui/grid
-    {:display         :flex
+    {:align-items     :stretch
+     :display         :flex
      :flex-direction  :row
-     :justify-content :space-between
-     :align-items     :flex-start
-     :flex-wrap       :wrap}
+     :flex-wrap       :wrap
+     :justify-content :stretch}
     [:ui.grid/card
-     {:flex-basis "40%"
-      :min-height "30%"
-      :font-size  "0.8em"
-      :margin     [["1vh 1vw"]]}
+     {:border-radius "8px"
+      :box-shadow    "0px 0px 0px 12px rgba(0,0,0,0.2)"
+      :font-size     "0.8em"
+      :margin        "3ch"
+      :padding       "2ch"
+      :flex-basis    "35%"
+      :min-height    "20ch"}
+
+     [:ui.grid.card/title
+      {:color       (=>color ::mustard)
+       :font-family font/code-stack}]
      [:ui.grid.card/hero {}]
-     [:ui.grid.card/title {}]
      [:uiui.grid.card/description {}]]]
 
    [(at-media-desktop
-     [[:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]])]
+     [[:ui/desktop-only :ui/not-mobile :ui/not-tablet {:display :inherit}]
+      [:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]
+      [:ui/grid [:ui.grid/card {:flex-basis "35%"}]]])]
+   [(at-media-not-desktop
+     [[:ui/grid [:ui.grid/card {:flex-basis "100%"}]]])]
    [(at-media-not-mobile
      [[:a {:transition "color 150ms ease"}]])]
    [(at-media-tablet
-     [[:body {:font-size "1.2rem"}]
+     [[:ui/tablet-only :ui/not-mobile :ui/not-desktop {:display :inherit}]
+      [:body {:font-size "1.2rem"}]
       [:ui/not-tablet :ui/desktop-only :ui/mobile-only {:display :none}]])]
-   [(at-media-tablet-strict [])]
+   [(at-media-only-tablet [])]
    [(at-media-mobile
-     [[:body {:font-size "1.1rem"}]
-      [:p :li {:line-height "1.75rem"}]
-      [:ui/input {:width "100%" :max-width :none}]
-      [:button {:width "100%" :max-width :none}]
+     [[:ui/mobile-only :ui/not-tablet :ui/not-desktop {:display :inherit}]
       [:ui/not-mobile :ui/desktop-only :ui/tablet-only {:display :none}]
-      [:footer {:padding "0 7vw"}]])]])
+      [:body {:font-size "1.1rem"}]
+      [:p :li {:line-height "1.75rem"}]
+      #_[:button {:width "100%" :max-width :none}]
+      [:footer {:padding "0 7vw"}]
+      [:ui/input {:width "100%" :max-width :none}]])]])

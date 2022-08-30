@@ -11,16 +11,7 @@
 
 (def routes
   ["/"
-   [["" ::dashboard]
-    ["reservations" ::reservations]
-    #_["login" ::login]
-    #_["logout" ::logout]
-    #_["pricing" ::pricing]
-    #_["profile" ::profile]
-    #_["profile/" ::profile]
-    #_[["profile/" [keyword :section]] ::profile-section]
-    #_["signup" ::signup]
-    #_[["token/verify/" :jwt] ::token-verify]
+   [["" ::portfolio]
     [true ::not-found]]])
 
 (def route? keyword?)

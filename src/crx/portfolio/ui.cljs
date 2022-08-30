@@ -4,6 +4,7 @@
    [crx.portfolio.ui.config :refer [config]]
    [crx.portfolio.ui.page :as page]
    [crx.portfolio.ui.router :as router]
+   [crx.portfolio.ui.style.icon :as icon]
    [reagent.core]
    [reagent.dom :as rd]))
 
@@ -20,6 +21,7 @@
   []
   (try
     (router/start!)
+    (icon/init!)
     (render)
     (catch :default e
       (js/console.error "Error loading the page")

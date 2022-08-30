@@ -10,24 +10,14 @@
 
 (defmethod style.proto/->styles ::styles
   [_props]
-  [[::cards {:flex-direction :row}
-    [::card {:margin "1em"
-             :width  "250px"}]]
-   [::reservations {:width "100%"}
-    [:thead {}
-     [:th {:border-bottom [["1px" :solid (theme/=>color ::theme/white)]]
-           :margin        0
-           :padding [["0.5em" 0]]}]]
-    [:tbody {}
-     [:td {:padding [["0.5em" 0]]}]]]])
+  [[::card-image {:width "100%"}]])
 
 (def projects
   [{:key   :nuid-portal
-    :title "NuID Developer Portal"
-    :image "img/crxdev-logo.svg"
+    :title "NuID Docs, SDKs"
+    :image "img/portfolio/nuid-portal.png"
     :description
-    [:<>
-     [:p "In 2020-2021 I worked for "
+    [[:p "In 2020-2021 I worked for "
       [:a {:href "" :target "_blank"} "NuID"]
       " and wrote their "
       [:a {:href "" :target "_blank"} "developer portal"]
@@ -37,37 +27,51 @@
         Go, and Node.js."]]}
    {:key   :elm-mastermind
     :title "Elm Mastermind"
-    :image "img/crxdev-logo.svg"
+    :image "img/portfolio/mastermind.png"
     :description
-    [:<>
-     [:p "The game Mastermind (guess the color combination), written in elm."]]}
+    [[:p "The game Mastermind (guess the color combination), written in elm."]]}
    {:key   :elm-games
     :title "Elm Games"
-    :image "img/crxdev-logo.svg"
+    :image "img/portfolio/minesweeper.png"
     :description
-    [:<>
-     [:p "Minesweeper and Tic-Tac-Toe, written in elm."]]}
-   {:key   :clj-game-of-life
-    :title "Clojure Game of Life"
-    :image "img/crxdev-logo.svg"
+    [[:p "Minesweeper and Tic-Tac-Toe, written in elm."]]}
+   {:key   :game-of-life
+    :title "Game of Life"
+    :video "https://www.youtube-nocookie.com/embed/IqkOy55iFUA"
     :description
-    [:<>
-     [:p "Back when I was learning Clojure, I wrote the Game of Life again."]]}
-   {:key   :ruby-game-of-life
-    :title "Ruby Game of Life"
-    :image "img/crxdev-logo.svg"
-    :description
-    [:<>
-     [:p "My first stab at writing the Game of Life, in Ruby."]]}])
+    [[:p "Game of life written in Clojure and Ruby, circa 2015."]
+     [:p
+      [:a {:href "https://github.com/localshred/game_of_life/tree/main/clojure" :target "_blank"}
+       [theme/icon ["fab" "github"]]
+       "Clojure Source"]
+      " | "
+      [:a {:href "https://github.com/localshred/game_of_life/tree/main/ruby" :target "_blank"}
+       [theme/icon ["fab" "github"]]
+       "Ruby Source"]
+      " | "
+      [:a {:href "https://www.youtube.com/watch?v=IqkOy55iFUA" :target "_blank"}
+       [theme/icon ["fab" "youtube"]]
+       "Watch on Youtube"]]]}])
 
 (defn render-card
-  [{:keys [key image title description]}]
+  [{:keys [key image title description video]}]
   [:div
    {:key   key
     :class (style.lib/classes :ui.grid/card)}
-   [:img {:class (style.lib/classes :ui.grid.card/hero)
-          :src   image}]
-   [:h3 {:class (style.lib/classes :ui.grid.card/title)} title]
+   [:h4 {:class (style.lib/classes :ui.grid.card/title)} title]
+   (when image
+     [:img {:class (style.lib/classes :ui.grid.card/hero ::card-image)
+            :src   image}])
+   (when video
+     [:iframe
+      {:class           (style.lib/classes :ui.grid.card/hero)
+       :width           "100%"
+       :frameborder     0
+       :src             video
+       :title           "YouTube video player"
+       :allow           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+       :allowFullScreen :allowFullScreen}])
+
    (into [:div {:class (style.lib/classes :ui.grid.card/description)}]
          description)])
 
@@ -75,10 +79,9 @@
   [props]
   [layout/component
    (assoc props :title "dashboard")
-   [:h1 "Work, Work"]
-   [:div {:class (style.lib/classes :ui/grid)}
+   [:div {:class (style.lib/classes :ui/grid :ui/grid3)}
     (map render-card projects)]])
 
-(defmethod page.proto/component ::router/dashboard
+(defmethod page.proto/component ::router/portfolio
   [props]
   [render props])
