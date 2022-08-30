@@ -1,0 +1,35 @@
+{
+  "name": "crxdev-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sc": "shadow-cljs",
+    "server": "shadow-cljs stop && shadow-cljs start",
+    "start": "shadow-cljs watch ui",
+    "build": "yarn clean && shadow-cljs release app",
+    "report": "shadow-cljs run shadow.cljs.build-report app report.html",
+    "lint": "clj-kondo --lint src",
+    "format": "zprint-clj --hang -i \"./src/**/*.{clj,cljs,cljc,edn}\" -o ./ && zprint-clj -i \"./*.edn\" -o ./",
+    "clean": "rimraf resources/public/js"
+  },
+  "devDependencies": {
+    "clj-kondo": "2022.3.9",
+    "jsdom": "^19.0.0",
+    "jsdom-global": "^3.0.2",
+    "marked": "^4.0.12",
+    "rimraf": "~3.0.2",
+    "serve-handler": "~6.1.3",
+    "shadow-cljs": "~2.17.8",
+    "taiko": "~1.3.1",
+    "taiko-diagnostics": "~0.4.0",
+    "zprint-clj": "~0.8.0"
+  },
+  "dependencies": {
+    "@js-joda/core": "^5.2.0",
+    "@js-joda/locale_en-us": "^4.7.0",
+    "@js-joda/timezone": "2.5.0",
+    "create-react-class": "~15.7.0",
+    "react": "~17.0.2",
+    "react-dom": "~17.0.2"
+  }
+}

@@ -1,0 +1,19 @@
+{:builds
+ {:ui     {:asset-path "/js"
+           :dev        {:closure-defines {}}
+           :modules    {:main {:init-fn crx.portfolio.ui/init}}
+           :output-dir "resources/public/js"
+           :release    {:closure-defines {}}
+           :target     :browser}
+  :static {:target           :node-script
+           :main             crx.portfolio.ui.static/generate!
+           :output-to        "resources/bin/static.js"
+           :compiler-options {:reader-features #{:node}}
+           :devtools         {:after-load crx.portfolio.ui.static/generate!}}}
+ :dependencies [[bidi "2.1.6"]
+                [clj-commons/pushy "0.3.10"]
+                [garden "1.3.10"]
+                [reagent "1.1.1"]]
+ :dev-http     {3000 "resources/public"}
+ :nrepl        {:port 3333}
+ :source-paths ["src"]}

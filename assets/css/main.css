@@ -1,0 +1,174 @@
+/*
+ * Colors
+ *
+ * #25283D
+ * #3E9F75
+ * #7E7F9A
+ * #EB9486
+ * #F3DE8A
+ *
+ */
+html,body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.theme {
+    color: #fff;
+    font-family: Baskerville, serif;
+    font-size: 3ch;
+}
+
+.theme p {
+    margin: 0.5em;
+}
+
+.theme h1,
+.theme h2,
+.theme h3,
+.theme h4,
+.theme h5,
+.theme h6 {
+    color: #EB9486;
+    margin: 0.5em auto;
+}
+
+.theme h1 {
+    font-size: 2.0em;
+}
+
+.theme h2 {
+    font-size: 1.8em;
+}
+
+.theme h3 {
+    font-size: 1.6em;
+}
+
+.theme h4 {
+    font-size: 1.4em;
+}
+
+.theme h5 {
+    font-size: 1.2em;
+}
+
+.theme h6 {
+    font-size: 1.0em;
+}
+
+.theme h1:first-child,
+.theme h2:first-child,
+.theme h3:first-child,
+.theme h4:first-child,
+.theme h5:first-child,
+.theme h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.theme h1:last-child,
+.theme h2:last-child,
+.theme h3:last-child,
+.theme h4:last-child,
+.theme h5:last-child,
+.theme h6:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.theme a,
+.theme a:visited {
+    text-decoration: none;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    color: #3E9F75;
+}
+
+.theme a:hover {
+    border-bottom-style: solid;
+}
+
+main.theme {
+  background-color: #25283D;
+}
+
+main#homepage {
+  display: flex;
+  flex-direction: row;
+  min-height: 100%;
+  justify-content: center;
+}
+
+main header {
+  flex: 1;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 5vh 2vw;
+}
+
+main.theme header a,
+main.theme header a:visited {
+    /* color: #3E9F75; */
+}
+
+main header nav ul {
+    list-style-type: none;
+    text-align: left;
+}
+
+main header nav ul li {
+}
+
+main#homepage img#logo {
+}
+
+main #content {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin: 5vh 5vw;
+}
+
+main #content article {
+    flex: 5;
+}
+
+main #content footer {
+    flex: 1;
+    color: #7E7F9A;
+    font-family: monospace, sans-serif;
+    font-size: 0.6em;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.grid .card {
+    flex-basis: 40%;
+    min-height: 30%;
+    font-size: 0.8em;
+    margin: 1vh 1vw;
+}
+
+.grid .card .hero {
+    width: 100%;
+
+}
+
+.grid .card .title {
+
+}
+
+.grid > div .description {
+
+}
