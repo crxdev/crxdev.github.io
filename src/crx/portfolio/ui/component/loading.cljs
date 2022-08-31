@@ -7,14 +7,12 @@
 
 (defmethod style.proto/->styles ::styles
   [_props]
-  [[::container
-    {:display     :grid
-     :height      "100vh"
-     :place-items :center
-     :width       "100vw"}
-    [:h1
-     {:margin  0
-      :padding 0}]]])
+  [[::container {:display     :grid
+                 :height      "100vh"
+                 :place-items :center
+                 :width       "100vw"}
+    [:h1 {:margin  0
+          :padding 0}]]])
 
 (defn component
   [_props]

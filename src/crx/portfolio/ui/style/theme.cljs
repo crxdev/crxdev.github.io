@@ -40,49 +40,35 @@
 (def darkgray-svg-filter  "invert(16.5%)")
 
 (def at-media-desktop
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :min-width (g.units/px+ tablet-width 1)}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :min-width (g.units/px+ tablet-width 1)}))
 
 (def at-media-tablet
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :max-width tablet-width}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :max-width tablet-width}))
 
 (def at-media-not-desktop at-media-tablet)
 
 (def at-media-only-tablet
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :min-width (g.units/px+ mobile-width 1)
-    :max-width tablet-width}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :min-width (g.units/px+ mobile-width 1)
+                                  :max-width tablet-width}))
 
 (def at-media-mobile
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :max-width mobile-width}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :max-width mobile-width}))
 
 (def at-media-not-mobile
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :min-width (g.units/px+ mobile-width 1)}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :min-width (g.units/px+ mobile-width 1)}))
 
 (def at-media-small
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :max-width small-width}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :max-width small-width}))
 
 (def at-media-not-small
-  (partial
-   g.stylesheet/at-media
-   {:screen    true
-    :min-width (g.units/px+ small-width 1)}))
+  (partial g.stylesheet/at-media {:screen    true
+                                  :min-width (g.units/px+ small-width 1)}))
 
 (def padding-not-mobile unit*3)
 (def padding-mobile     unit)
@@ -95,13 +81,16 @@
 (def text-size-xl text-size-lg)
 (def max-content-width "760px")
 
-(def Icon
-  (r/adapt-react-class react-fa/FontAwesomeIcon))
+(def Icon (r/adapt-react-class react-fa/FontAwesomeIcon))
 
 (defn icon
   [icon-info]
   [Icon {:class (style.lib/classes :ui/icon)
          :icon  icon-info}])
+
+(defn at-supports
+  ([m] (g.stylesheet/at-supports m [:& m]))
+  ([m m2] (g.stylesheet/at-supports m [:& (merge m m2)])))
 
 (defmethod style.proto/->styles ::styles
   [_]
@@ -152,30 +141,23 @@
    [:a:hover :a:visited:hover
     {:border-bottom-style :solid}]
 
-   [:hr
-    {:color  (=>color ::white)
-     :border [["1px" :solid (=>color ::white)]]
-     :width  "100%"}]
+   [:hr {:color  (=>color ::white)
+         :border [["1px" :solid (=>color ::white)]]
+         :width  "100%"}]
 
    [:input
-    [(g.stylesheet/at-supports
-      {:-webkit-appearance :none}
-      [:& {:-webkit-appearance :none}])]
-    [(g.stylesheet/at-supports
-      {:-webkit-border-radius 0}
-      [:& {:-webkit-border-radius 0
-           :border-radius         0}])]]
+    [(at-supports {:-webkit-appearance :none})]
+    [(at-supports {:-webkit-border-radius 0} {:border-radius 0})]]
 
    [:ui/icon {:margin-right "1ex"}]
 
-   [:ui/input
-    {:box-sizing    :border-box
-     :display       :block
-     :max-width     "350px"
-     :min-width     "200px"
-     :width         "66%"
-     :border        :none
-     :border-bottom "2px dotted black"}
+   [:ui/input {:box-sizing    :border-box
+               :display       :block
+               :max-width     "350px"
+               :min-width     "200px"
+               :width         "66%"
+               :border        :none
+               :border-bottom "2px dotted black"}
     [(g.sel/input (g.sel/not (g.sel/attr= :type :submit)))
      :textarea
      {:border        :none
@@ -185,8 +167,7 @@
       :width         "100%"}]]
 
    [:ui/input-row-error
-    [:ui/input
-     {:border-bottom "2px dotted red"}]]
+    [:ui/input {:border-bottom "2px dotted red"}]]
 
    [:button :ui/button-link
     (g.sel/input (g.sel/attr= :type :submit))
@@ -201,18 +182,14 @@
      :text-align       :center
      :transition       "background 150ms ease"}
     [:&:focus {:outline :none}]
-    #_[:&:hover {:background (=>color ::white) :color :white}]
     [:&:disabled {:background (=>color ::light-gray) :cursor :not-allowed}]
     [:&:disabled:hover {:background :auto}]]
 
-   [(g.sel/a :ui/button-link)
-    {:padding-bottom  "0.5em"
-     :text-decoration :none}
+   [(g.sel/a :ui/button-link) {:padding-bottom  "0.5em"
+                               :text-decoration :none}
     [:&:hover {:text-decoration :underline}]]
 
-   [:pre
-    :span.code
-    :ui/code
+   [:pre :span.code :ui/code
     {:background  "rgb(245,242,240)"
      :box-sizing  :border-box
      :font-family font/code-stack
@@ -232,117 +209,68 @@
    [:ui/text-xl    {:font-size text-size-xl}]
    [:ui/underlined {:text-decoration :underline}]
 
-   [:ui/flex
-    {:display "flex"}
-    [(g.stylesheet/at-supports
-      {:display "-webkit-box"}
-      [:& {:display "-webkit-box"}])]
-    [(g.stylesheet/at-supports
-      {:display "-moz-box"}
-      [:& {:display "-moz-box"}])]
-    [(g.stylesheet/at-supports
-      {:display "-ms-flexbox"}
-      [:& {:display "-ms-flexbox"}])]
-    [(g.stylesheet/at-supports
-      {:display "-webkit-flex"}
-      [:& {:display "-webkit-flex"}])]]
+   [:ui/flex {:display "flex"}
+    [(at-supports {:display "-webkit-box"})]
+    [(at-supports {:display "-moz-box"})]
+    [(at-supports {:display "-ms-flexbox"})]
+    [(at-supports {:display "-webkit-flex"})]]
 
-   [:ui/space-between
-    {:justify-content "space-between"}
-    [(g.stylesheet/at-supports
-      {:-webkit-box-pack "justify"}
-      [:& {:-webkit-box-pack "justify"}])]
-    [(g.stylesheet/at-supports
-      {:-moz-box-pack "justify"}
-      [:& {:-moz-box-pack "justify"}])]
-    [(g.stylesheet/at-supports
-      {:-ms-flex-pack "justify"}
-      [:& {:-ms-flex-pack "justify"}])]]
+   [:ui/space-between {:justify-content "space-between"}
+    [(at-supports {:-webkit-box-pack "justify"})]
+    [(at-supports {:-moz-box-pack "justify"})]
+    [(at-supports {:-ms-flex-pack "justify"})]]
 
-   [:ui/space-around
-    {:justify-content "space-around"}
-    [(g.stylesheet/at-supports
-      {:-ms-flex-pack "distribute"}
-      [:& {:-ms-flex-pack "distribute"}])]]
+   [:ui/space-around {:justify-content "space-around"}
+    [(at-supports {:-ms-flex-pack "distribute"})]]
 
-   [:ui/vertical-center
-    {:justify-content "center"}
-    [(g.stylesheet/at-supports
-      {:-webkit-box-pack "center"}
-      [:& {:-webkit-box-pack "center"}])]
-    [(g.stylesheet/at-supports
-      {:-moz-box-pack "center"}
-      [:& {:-moz-box-pack "center"}])]
-    [(g.stylesheet/at-supports
-      {:-webkit-justify-content "center"}
-      [:& {:-webkit-justify-content "center"}])]
-    [(g.stylesheet/at-supports
-      {:-ms-flex-pack "center"}
-      [:& {:-ms-flex-pack "center"}])]]
+   [:ui/vertical-center {:justify-content "center"}
+    [(at-supports {:-webkit-box-pack "center"})]
+    [(at-supports {:-moz-box-pack "center"})]
+    [(at-supports {:-webkit-justify-content "center"})]
+    [(at-supports {:-ms-flex-pack "center"})]]
 
-   [:ui/justify-content-start
-    {:justify-content "start"}
-    [(g.stylesheet/at-supports
-      {:-webkit-box-pack "start"}
-      [:& {:-webkit-box-pack "start"}])]
-    [(g.stylesheet/at-supports
-      {:-moz-box-pack "start"}
-      [:& {:-moz-box-pack "start"}])]
-    [(g.stylesheet/at-supports
-      {:-webkit-justify-content "start"}
-      [:& {:-webkit-justify-content "start"}])]
-    [(g.stylesheet/at-supports
-      {:-ms-flex-pack "start"}
-      [:& {:-ms-flex-pack "start"}])]]
+   [:ui/justify-content-start {:justify-content "start"}
+    [(at-supports {:-webkit-box-pack "start"})]
+    [(at-supports {:-moz-box-pack "start"})]
+    [(at-supports {:-webkit-justify-content "start"})]
+    [(at-supports {:-ms-flex-pack "start"})]]
 
-   [:ui/align-center
-    {:align-items "center"}
-    [(g.stylesheet/at-supports
-      {:-webkit-box-align "center"}
-      [:& {:-webkit-box-align "center"}])]
-    [(g.stylesheet/at-supports
-      {:-ms-flex-align "center"}
-      [:& {:-ms-flex-align "center"}])]]
+   [:ui/align-center {:align-items "center"}
+    [(at-supports {:-webkit-box-align "center"})]
+    [(at-supports {:-ms-flex-align "center"})]]
 
-   [:ui/grid
-    {:align-items     :stretch
-     :display         :flex
-     :flex-direction  :row
-     :flex-wrap       :wrap
-     :justify-content :stretch}
-    [:ui.grid/card
-     {:border-radius "8px"
-      :box-shadow    "0px 0px 0px 12px rgba(0,0,0,0.2)"
-      :font-size     "0.8em"
-      :margin        "3ch"
-      :padding       "2ch"
-      :flex-basis    "35%"
-      :min-height    "20ch"}
+   [:ui/grid {:align-items     :stretch
+              :display         :flex
+              :flex-direction  :row
+              :flex-wrap       :wrap
+              :justify-content :stretch}
+    [:ui.grid/card {:border-radius "8px"
+                    :box-shadow    "0px 0px 0px 12px rgba(0,0,0,0.2)"
+                    :font-size     "0.8em"
+                    :margin        "3ch"
+                    :padding       "2ch"
+                    :flex-basis    "35%"
+                    :min-height    "20ch"}
 
-     [:ui.grid.card/title
-      {:color       (=>color ::mustard)
-       :font-family font/code-stack}]
+     [:ui.grid.card/title {:color       (=>color ::mustard)
+                           :font-family font/code-stack}]
      [:ui.grid.card/hero {}]
-     [:uiui.grid.card/description {}]]]
+     [:ui.grid.card/description {}]]]
 
-   [(at-media-desktop
-     [[:ui/desktop-only :ui/not-mobile :ui/not-tablet {:display :inherit}]
-      [:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]
-      [:ui/grid [:ui.grid/card {:flex-basis "35%"}]]])]
-   [(at-media-not-desktop
-     [[:ui/grid [:ui.grid/card {:flex-basis "100%"}]]])]
-   [(at-media-not-mobile
-     [[:a {:transition "color 150ms ease"}]])]
-   [(at-media-tablet
-     [[:ui/tablet-only :ui/not-mobile :ui/not-desktop {:display :inherit}]
-      [:body {:font-size "1.2rem"}]
-      [:ui/not-tablet :ui/desktop-only :ui/mobile-only {:display :none}]])]
+   [(at-media-desktop [[:ui/desktop-only :ui/not-mobile :ui/not-tablet {:display :inherit}]
+                       [:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]
+                       [:ui/grid [:ui.grid/card {:flex-basis "35%"}]]])]
+   [(at-media-not-desktop [[:ui/grid [:ui.grid/card {:flex-basis "100%"}]]])]
+
+   [(at-media-tablet [[:ui/tablet-only :ui/not-mobile :ui/not-desktop {:display :inherit}]
+                      [:body {:font-size "1.2rem"}]
+                      [:ui/not-tablet :ui/desktop-only :ui/mobile-only {:display :none}]])]
    [(at-media-only-tablet [])]
-   [(at-media-mobile
-     [[:ui/mobile-only :ui/not-tablet :ui/not-desktop {:display :inherit}]
-      [:ui/not-mobile :ui/desktop-only :ui/tablet-only {:display :none}]
-      [:body {:font-size "1.1rem"}]
-      [:p :li {:line-height "1.75rem"}]
-      #_[:button {:width "100%" :max-width :none}]
-      [:footer {:padding "0 7vw"}]
-      [:ui/input {:width "100%" :max-width :none}]])]])
+
+   [(at-media-mobile [[:ui/mobile-only :ui/not-tablet :ui/not-desktop {:display :inherit}]
+                      [:ui/not-mobile :ui/desktop-only :ui/tablet-only {:display :none}]
+                      [:body {:font-size "1.1rem"}]
+                      [:p :li {:line-height "1.75rem"}]
+                      [:footer {:padding "0 7vw"}]
+                      [:ui/input {:width "100%" :max-width :none}]])]
+   [(at-media-not-mobile [[:a {:transition "color 150ms ease"}]])]])

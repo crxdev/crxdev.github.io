@@ -11,95 +11,71 @@
 
 (defmethod style.proto/->styles ::styles
   [_props]
-  [[:div#app
-    {:background-color (theme/=>color ::theme/dark-gray)
-     :color            (theme/=>color ::theme/light-gray)
-     :min-width        (g.units/px 1000)}
+  [[:div#app {:background-color (theme/=>color ::theme/dark-gray)
+              :color            (theme/=>color ::theme/light-gray)
+              :min-width        (g.units/px 1000)}
     [:>
-     [:main
-      {:display          :flex
-       :justify-content  :center
-       :background-color (theme/=>color ::theme/dark-gray)
-       :color            (theme/=>color ::theme/light-gray)
-       :flex-direction   :row
-       :font-family      font/stack
-       :font-size        theme/text-size-baseline
-       :font-weight      200
-       :min-height       "100vh"}
-
-      [:header
-       {:flex       1
-        :margin     [[0 :auto]]
-        :text-align :center
-        :background (theme/=>color ::theme/white)
-        :padding    [["5vh" "2vw"]]}
-       [:nav
-        {:font-family font/code-stack}
-        [:ul
-         {:font-size       "0.8em"
-          :list-style-type :none
-          :text-align      :right
-          :margin          0
-          :padding         0
-          :width           "100%"}
+     [:main {:display          :flex
+             :justify-content  :center
+             :background-color (theme/=>color ::theme/dark-gray)
+             :color            (theme/=>color ::theme/light-gray)
+             :flex-direction   :row
+             :font-family      font/stack
+             :font-size        theme/text-size-baseline
+             :font-weight      200
+             :min-height       "100vh"}
+      [:header {:background (theme/=>color ::theme/white)
+                :flex       1
+                :margin     [[0 :auto]]
+                :padding    [["5vh" "2vw"]]
+                :text-align :center}
+       [:nav {:font-family font/code-stack}
+        [:ul {:font-size       "0.8em"
+              :list-style-type :none
+              :text-align      :right
+              :margin          0
+              :padding         0
+              :width           "100%"}
          [:li {:margin [["1ch" 0]]}]]]
        [:img#logo {}]]
 
-      [:div#content
-       {:display         :flex
-        :flex            2
-        :flex-direction  :column
-        :justify-content :space-between
-        :height          "100%"
-        :margin          [["5vh" "5vw"]]}
+      [:div#content {:display         :flex
+                     :flex            2
+                     :flex-direction  :column
+                     :justify-content :space-between
+                     :height          "100%"
+                     :margin          [["5vh" "5vw"]]}
        [:>
-        [:article
-         {:flex 5}]]]
+        [:article {:flex 5}]]]
 
-      [:footer
-       {:color       (theme/=>color ::theme/purple)
-        :flex        1
-        :font-family font/code-stack
-        :font-size   "0.6em"
-        :margin-top  "3ch"
-        :text-align  :center}
-       [:p
-        {:display    :inline-block
-         :padding    [["3ch" "3ch" "0"]]
-         :border-top [["1px" :dotted (theme/=>color ::theme/purple)]]}]]]]]
+      [:footer {:color       (theme/=>color ::theme/purple)
+                :flex        1
+                :font-family font/code-stack
+                :font-size   "0.6em"
+                :margin-top  "3ch"
+                :text-align  :center}
+       [:p {:display    :inline-block
+            :padding    [["3ch" "3ch" "0"]]
+            :border-top [["1px" :dotted (theme/=>color ::theme/purple)]]}]]]]]
 
    [(theme/at-media-not-desktop
-     [[:div#app
-       {:min-width :auto
-        :width     "100vw"}
+     [[:div#app {:min-width :auto
+                 :width     "100vw"}
        [:>
-        [:main
-         {:flex-direction :column
-          :font-size      "2.5ch"}
-         [:header
-          {:width   "100%"
-           :padding [["2vh" 0]]}
+        [:main {:flex-direction :column
+                :font-size      "2.5ch"}
+         [:header {:padding [["2vh" 0]]
+                   :width   "100%"}
           [:nav
-           {}
-           [:ul
-            {:display         :flex
-             :flex-direction  :row
-             :align-items     :center
-             :justify-content :center
-             :margin          [[0 :auto]]}
-            [:li
-             {:margin [["1ch" "2ch"]]}]]]
-          [:img#logo
-           {:max-width  "85%"
-            :max-height "10vh"}]]
-         [:div#content
-          {:margin [["2vh" :auto]]}
-          [:article
-           {}]]
-         [:footer
-          {}
-          [:p
-           {}]]]]]])]
+           [:ul {:align-items     :center
+                 :display         :flex
+                 :flex-direction  :row
+                 :justify-content :center
+                 :margin          [[0 :auto]]}
+            [:li {:margin [["1ch" "2ch"]]}]]]
+          [:img#logo {:max-height "10vh"
+                      :max-width  "85%"}]]
+         [:div#content {:margin [["2vh" :auto]]}]]]]])]
 
    [(theme/at-media-mobile
      [[:div#app
@@ -107,11 +83,9 @@
         [:main
          [:header
           [:nav
-           [::menu-btn
-            {:display :inline-block}]
-           [:ul
-            {:display    :none
-             :text-align :center}
+           [::menu-btn {:display :inline-block}]
+           [:ul {:display    :none
+                 :text-align :center}
             [(g.sel/& :ui/show) {:display :block}]]]]]]]])]])
 
 (defn header
