@@ -2,7 +2,7 @@ node_modules
 resources/bin
 resources/public/js
 resources/public/index.html
-resources/public/main.css
+resources/public/css/main.css
 out
 .shadow-cljs
 .nrepl-port
