@@ -11,7 +11,6 @@
 (defn ^:dev/after-load render
   "Render the toplevel component for this app."
   []
-  (js/console.log (clj->js {:config config}))
   (->>
    (. js/document getElementById "app")
    (rd/render [page/component])))

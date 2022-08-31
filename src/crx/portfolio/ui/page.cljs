@@ -18,5 +18,4 @@
                            @state/route-ratom)
         props            {::router/route-match route-match
                           ::router/page-ident  (:handler route-match)}]
-    (js/console.log (clj->js props))
     [page.proto/component props]))
