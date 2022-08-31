@@ -10,7 +10,8 @@
 
 (defmethod style.proto/->styles ::styles
   [_props]
-  [[::card-image {:width "100%"}]
+  [[:iframe {:border :none}]
+   [::card-image {:width "100%"}]
    [:ui.grid.card/links {:list-style-type :none
                          :margin          0
                          :padding         0}
@@ -71,7 +72,6 @@
      [:iframe
       {:class           (style.lib/classes :ui.grid.card/hero)
        :width           "100%"
-       :frameBorder     0
        :src             video
        :title           "YouTube video player"
        :allow           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

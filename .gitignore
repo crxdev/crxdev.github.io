@@ -1,5 +1,6 @@
 node_modules
 resources/bin
+resources/public/js/cljs-runtime/
 out
 .shadow-cljs
 .nrepl-port
