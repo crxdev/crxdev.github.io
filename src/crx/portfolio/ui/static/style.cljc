@@ -3,6 +3,7 @@
    [garden.selectors :as g.sel]
    [crx.portfolio.ui.style.lib :as style.lib]
    [crx.portfolio.ui.component.card :as component.card]
+   [crx.portfolio.ui.component.link :as component.link]
    [crx.portfolio.ui.component.layout.holy-grail :as layout.holy-grail]
    [crx.portfolio.ui.page.dashboard :as page.dashboard]
    [crx.portfolio.ui.page.not-found :as page.not-found]
@@ -16,12 +17,13 @@
   nil)
 
 (defonce styles
-  [::font/playfair-display
-   ::font/rubik
+  [#_::font/playfair-display
+   #_::font/rubik
    ::theme/styles
    ::layout.holy-grail/styles
    ::page.dashboard/styles
    ::page.not-found/styles
+   ::component.link/styles
    ::component.card/styles])
 
 (defn >>styles

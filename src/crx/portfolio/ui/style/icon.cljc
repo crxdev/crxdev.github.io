@@ -1,18 +1,21 @@
 (ns crx.portfolio.ui.style.icon
   (:require
    ["@fortawesome/fontawesome-svg-core" :as fa]
-   ["@fortawesome/free-solid-svg-icons/faAngleDown" :refer [faAngleDown]]
-   ["@fortawesome/free-solid-svg-icons/faAngleUp" :refer [faAngleUp]]
    ["@fortawesome/free-brands-svg-icons/faGithub" :refer [faGithub]]
    ["@fortawesome/free-brands-svg-icons/faYoutube" :refer [faYoutube]]
+   ["@fortawesome/free-solid-svg-icons/faAngleDown" :refer [faAngleDown]]
+   ["@fortawesome/free-solid-svg-icons/faAngleUp" :refer [faAngleUp]]
+   ["@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare" :refer [faArrowUpRightFromSquare]]
+   ["@fortawesome/free-solid-svg-icons/faBookOpen" :refer [faBookOpen]]
+   ["@fortawesome/free-solid-svg-icons/faCode" :refer [faCode]]
+   ["@fortawesome/free-solid-svg-icons/faGamepad" :refer [faGamepad]]
+   ["@fortawesome/free-solid-svg-icons/faPalette" :refer [faPalette]]
    #_["@fortawesome/free-brands-svg-icons/faNpm" :refer [faNpm]]
    #_["@fortawesome/free-regular-svg-icons/faFileAlt" :refer [faFileAlt]]
    #_["@fortawesome/free-regular-svg-icons/faFilePdf" :refer [faFilePdf]]
    #_["@fortawesome/free-solid-svg-icons/faAngleRight" :refer [faAngleRight]]
-   #_["@fortawesome/free-solid-svg-icons/faBookOpen" :refer [faBookOpen]]
    #_["@fortawesome/free-solid-svg-icons/faCloudDownloadAlt" :refer [faCloudDownloadAlt]]
    #_["@fortawesome/free-solid-svg-icons/faCheck" :refer [faCheck]]
-   #_["@fortawesome/free-solid-svg-icons/faCode" :refer [faCode]]
    #_["@fortawesome/free-solid-svg-icons/faCodeBranch" :refer [faCodeBranch]]
    #_["@fortawesome/free-solid-svg-icons/faEye" :refer [faEye]]
    #_["@fortawesome/free-solid-svg-icons/faEyeSlash" :refer [faEyeSlash]]
@@ -29,13 +32,16 @@
   (fa/library.add
    faAngleDown
    faAngleUp
+   faArrowUpRightFromSquare
+   faBookOpen
+   faCode
+   faGamepad
    faGithub
+   faPalette
    faYoutube
    #_faAngleRight
-   #_faBookOpen
    #_faCheck
    #_faCloudDownloadAlt
-   #_faCode
    #_faCodeBranch
    #_faExclamationCircle
    #_faExternalLinkAlt

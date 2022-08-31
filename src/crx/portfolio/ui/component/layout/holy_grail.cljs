@@ -1,6 +1,6 @@
 (ns crx.portfolio.ui.component.layout.holy-grail
   (:require
-   [crx.portfolio.ui.router :as router]
+   [crx.portfolio.ui.component.link :as link]
    [crx.portfolio.ui.style.font :as font]
    [crx.portfolio.ui.style.lib :as style.lib]
    [crx.portfolio.ui.style.proto :as style.proto]
@@ -88,21 +88,24 @@
                  :text-align :center}
             [(g.sel/& :ui/show) {:display :block}]]]]]]]])]])
 
+(defn render-nav-link
+  [index link-props]
+  [:li {:key index} [link/component link-props]])
+
 (defn header
-  [_props]
-  (r/with-let [open? (r/atom nil)]
+  [{:keys [nav-links]}]
+  (r/with-let [nav-open? (r/atom nil)]
     [:header
      [:img#logo {:src "img/crxdev-logo.svg" :alt "crx//dev"}]
-     [:nav
-      [:button
-       {:class    (style.lib/classes :ui/mobile-only ::menu-btn)
-        :on-click (fn [& _] (swap! open? not))}
-       [theme/icon ["fas" (if @open? "angle-up" "angle-down")]]
-       "Menu"]
-      [:ul {:class (style.lib/classes :ui/not-mobile {:ui/show (true? @open?)})}
-       [:li [:a {:href (router/path-for ::router/portfolio)} "portfolio"]]
-       [:li [:a {:href "https://github.com/crxdev"} [theme/icon ["fab" "github"]] "crxdev"]]
-       [:li [:a {:href "https://github.com/localshred"} [theme/icon ["fab" "github"]] "localshred"]]]]]))
+     (when (seq nav-links)
+       [:nav
+        [:button
+         {:class    (style.lib/classes :ui/mobile-only ::menu-btn)
+          :on-click (fn [& _] (swap! nav-open? not))}
+         [theme/icon [:fas (if @nav-open? :angle-up :angle-down)]]
+         "Menu"]
+        [:ul {:class (style.lib/classes :ui/not-mobile {:ui/show (true? @nav-open?)})}
+         (doall (map-indexed render-nav-link nav-links))]])]))
 
 (def copyright-year
   (let [start-year   2022

@@ -84,9 +84,11 @@
 (def Icon (r/adapt-react-class react-fa/FontAwesomeIcon))
 
 (defn icon
-  [icon-info]
-  [Icon {:class (style.lib/classes :ui/icon)
-         :icon  icon-info}])
+  [props-or-icon]
+  (cond
+    (vector? props-or-icon) [Icon {:class (style.lib/classes :ui/icon-left) :icon props-or-icon}]
+    (map? props-or-icon)    [Icon props-or-icon]
+    :else nil))
 
 (defn at-supports
   ([m] (g.stylesheet/at-supports m [:& m]))
@@ -100,8 +102,6 @@
      :padding          0
      :background-color (=>color ::dark-gray)
      :color            (=>color ::light-gray)}]
-
-   [:p {:margin "0.5em"}]
 
    [:h1 :h2 :h3 :h4 :h5 :h6
     {:color  (=>color ::salmon)
@@ -149,7 +149,8 @@
     [(at-supports {:-webkit-appearance :none})]
     [(at-supports {:-webkit-border-radius 0} {:border-radius 0})]]
 
-   [:ui/icon {:margin-right "1ex"}]
+   [:ui/icon-left {:margin-right "1ch"}]
+   [:ui/icon-right {:margin-left "1ch"}]
 
    [:ui/input {:box-sizing    :border-box
                :display       :block
