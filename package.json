@@ -6,8 +6,8 @@
     "sc": "shadow-cljs",
     "server": "shadow-cljs stop && shadow-cljs start",
     "start": "shadow-cljs watch ui",
-    "build": "yarn clean && shadow-cljs release app",
-    "report": "shadow-cljs run shadow.cljs.build-report app report.html",
+    "build": "yarn clean && shadow-cljs release ui",
+    "report": "shadow-cljs run shadow.cljs.build-report ui report.html",
     "lint": "clj-kondo --lint src",
     "format": "zprint-clj --hang -i \"./src/**/*.{clj,cljs,cljc,edn}\" -o ./ && zprint-clj -i \"./*.edn\" -o ./",
     "clean": "rimraf resources/public/js"
