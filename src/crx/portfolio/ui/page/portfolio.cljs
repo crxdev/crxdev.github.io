@@ -100,7 +100,7 @@
 
 (defn render
   [props]
-  (r/with-let [tag-filter        (r/atom #{:game :clj})
+  (r/with-let [tag-filter        (r/atom #{})
                filter-by-tag     (fn [tag & _] (r/rswap! tag-filter conj tag))
                remove-tag-filter (fn [tag] (swap! tag-filter disj tag))
                clear-tag-filters (fn [& _] (swap! tag-filter (constantly #{})))
