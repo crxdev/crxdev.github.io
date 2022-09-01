@@ -63,12 +63,19 @@
    {:href "https://github.com/crxdev" :icon [:fab :github] :text "crxdev"}
    {:href "https://github.com/localshred" :icon [:fab :github] :text "localshred"}])
 
+(defn render-tag-pill
+  [remove-tag-filter index tag]
+  [:li {:key index}
+   [link/component {:on-click (partial remove-tag-filter tag)
+                    :text     (get data.portfolio/tags tag)
+                    :icon     [:fas :times]}]])
+
 (defn render
   [props]
   (r/with-let [tag-filter        (r/atom #{})
-               filter-by-tag     (fn [tag] (r/rswap! tag-filter conj tag))
+               filter-by-tag     (fn [tag & _] (r/rswap! tag-filter conj tag))
                remove-tag-filter (fn [tag] (swap! tag-filter disj tag))
-               clear-tag-filters (fn [] (swap! tag-filter #{}))
+               clear-tag-filters (fn [] (swap! tag-filter (constantly #{})))
                filter-props      {:filter-by-tag filter-by-tag}
                visible-projects  (r/track (fn []
                                             (let [tag-filter' @tag-filter]
@@ -78,7 +85,7 @@
                                                   (js/console.log (clj->js {:tag-filter tag-filter'}))
                                                   (filter (fn [{:keys [tags] :as project}]
                                                             (js/console.log (clj->js project))
-                                                            (some tag-filter' tags))
+                                                            (every? tags tag-filter'))
                                                           data.portfolio/projects))))))]
 
     [layout/component
@@ -86,13 +93,7 @@
      (when-not (empty? @tag-filter)
        [:<>
         [:ul
-         (doall (map-indexed
-                 (fn [index tag]
-                   [:li {:key index}
-                    [:span (tag data.portfolio/tags)]
-                    [link/component {:on-click (fn [] (remove-tag-filter tag))
-                                     :text (theme/icon [:fas :times])}]])
-                 @tag-filter))]
+         (doall (map-indexed  (partial render-tag-pill remove-tag-filter) @tag-filter))]
         [link/component {:on-click (fn [] (clear-tag-filters)) :text "Clear All Tags"}]])
      [:div {:class (style.lib/classes :ui/grid :ui/grid3)}
       (doall (map-indexed (partial render-project-card filter-props) @visible-projects))]]))
