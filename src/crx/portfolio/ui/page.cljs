@@ -2,7 +2,7 @@
   (:require
    [clojure.spec.alpha :as s]
    [crx.portfolio.ui.router :as router]
-   [crx.portfolio.ui.page.dashboard]
+   [crx.portfolio.ui.page.portfolio]
    [crx.portfolio.ui.page.not-found]
    [crx.portfolio.ui.page.proto :as page.proto]
    [crx.portfolio.ui.state :as state]))

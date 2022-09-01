@@ -10,6 +10,7 @@
    ["@fortawesome/free-solid-svg-icons/faCode" :refer [faCode]]
    ["@fortawesome/free-solid-svg-icons/faGamepad" :refer [faGamepad]]
    ["@fortawesome/free-solid-svg-icons/faPalette" :refer [faPalette]]
+   ["@fortawesome/free-solid-svg-icons/faTimes" :refer [faTimes]]
    #_["@fortawesome/free-brands-svg-icons/faNpm" :refer [faNpm]]
    #_["@fortawesome/free-regular-svg-icons/faFileAlt" :refer [faFileAlt]]
    #_["@fortawesome/free-regular-svg-icons/faFilePdf" :refer [faFilePdf]]
@@ -24,7 +25,6 @@
    #_["@fortawesome/free-solid-svg-icons/faMicrophone" :refer [faMicrophone]]
    #_["@fortawesome/free-solid-svg-icons/faMobileAlt" :refer [faMobileAlt]]
    #_["@fortawesome/free-solid-svg-icons/faServer" :refer [faServer]]
-   #_["@fortawesome/free-solid-svg-icons/faTimes" :refer [faTimes]]
    #_["@fortawesome/free-solid-svg-icons/faTrashAlt" :refer [faTrashAlt]]))
 
 (defn ^:dev/after-load init!
@@ -38,6 +38,7 @@
    faGamepad
    faGithub
    faPalette
+   faTimes
    faYoutube
    #_faAngleRight
    #_faCheck
@@ -53,5 +54,4 @@
    #_faMobileAlt
    #_faNpm
    #_faServer
-   #_faTimes
    #_faTrashAlt))

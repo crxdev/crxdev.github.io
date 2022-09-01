@@ -5,10 +5,9 @@
    [crx.portfolio.ui.component.card :as component.card]
    [crx.portfolio.ui.component.link :as component.link]
    [crx.portfolio.ui.component.layout.holy-grail :as layout.holy-grail]
-   [crx.portfolio.ui.page.dashboard :as page.dashboard]
+   [crx.portfolio.ui.page.portfolio :as page.portfolio]
    [crx.portfolio.ui.page.not-found :as page.not-found]
    [crx.portfolio.ui.style.theme :as theme]
-   [crx.portfolio.ui.style.font :as font]
    [crx.portfolio.ui.style.proto :as style.proto])
   #?(:clj (:import clojure.lang.Keyword)))
 
@@ -17,11 +16,9 @@
   nil)
 
 (defonce styles
-  [#_::font/playfair-display
-   #_::font/rubik
-   ::theme/styles
+  [::theme/styles
    ::layout.holy-grail/styles
-   ::page.dashboard/styles
+   ::page.portfolio/styles
    ::page.not-found/styles
    ::component.link/styles
    ::component.card/styles])
