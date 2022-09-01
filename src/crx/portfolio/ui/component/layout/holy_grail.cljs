@@ -25,7 +25,7 @@
              :font-weight      200
              :min-height       "100vh"}
       [:header {:background (theme/=>color ::theme/white)
-                :flex       1
+                :flex       :auto
                 :margin     [[0 :auto]]
                 :padding    [["5vh" "2vw"]]
                 :text-align :center}
@@ -64,7 +64,8 @@
        [:>
         [:main {:flex-direction :column
                 :font-size      "2.5ch"}
-         [:header {:padding [["2vh" 0]]
+         [:header {:flex    0
+                   :padding [["2vh" 0]]
                    :width   "100%"}
           [:nav
            [:ul {:align-items     :center

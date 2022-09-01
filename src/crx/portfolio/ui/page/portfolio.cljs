@@ -2,22 +2,44 @@
   (:require
    [crx.portfolio.ui.component.layout.holy-grail :as layout]
    [crx.portfolio.ui.component.link :as link]
+   [crx.portfolio.ui.data.portfolio :as data.portfolio]
    [crx.portfolio.ui.page.proto :as page.proto]
    [crx.portfolio.ui.router :as router]
+   [crx.portfolio.ui.style.font :as font]
    [crx.portfolio.ui.style.lib :as style.lib]
    [crx.portfolio.ui.style.proto :as style.proto]
    [crx.portfolio.ui.style.theme :as theme]
-   [crx.portfolio.ui.data.portfolio :as data.portfolio]
+   [garden.selectors :as g.sel]
    [reagent.core :as r]))
 
 (defmethod style.proto/->styles ::styles
   [_props]
   [[:iframe {:border :none}]
+   [::pill-list {:display         :flex
+                 :flex-flow       [[:row :wrap]]
+                 :list-style-type :none
+                 :margin          0
+                 :padding         0}
+    [(g.sel/li ::tag-pill) {:background-color (theme/=>color ::theme/mustard)
+                            :border-radius    "16px"
+                            :margin           "0.5ch"}
+     [(g.sel/& ::tag-clear-all) {:background :none}
+      [:a {:color (theme/=>color ::theme/light-gray)
+           :font-size "0.6em"}]]
+     [:ui/icon-left {:color (theme/=>color ::theme/dark-gray)}]
+     [:a {:border      :none
+          :color       (theme/=>color ::theme/dark-gray)
+          :font-family font/code-stack
+          :font-size   "0.8em"
+          :padding     "2ch"
+          :white-space :nowrap}]]]
+
    [::card-image {:width "100%"}]
    [:ui.grid.card/links {:list-style-type :none
                          :margin          0
                          :padding         0}
-    [:li {:line-height "3ch"}]]])
+    [:li {:line-height "3ch"}]]
+   [:ui.grid.card/tags {:margin-top "2ch"}]])
 
 (defn render-project-card-link
   [index link-props]
@@ -25,7 +47,8 @@
 
 (defn render-project-card-tags
   [{:keys [filter-by-tag]} index tag]
-  [:li {:key index}
+  [:li {:key index
+        :class (style.lib/classes ::tag-pill)}
    [link/component {:on-click (fn [] (filter-by-tag tag))
                     :text     (tag data.portfolio/tags)}]])
 
@@ -55,7 +78,7 @@
      [:ul {:class (style.lib/classes :ui.grid.card/links)}
       (doall (map-indexed render-project-card-link links))])
    (when (seq tags)
-     [:ul {:class (style.lib/classes :ui.grid.card/tags)}
+     [:ul {:class (style.lib/classes :ui.grid.card/tags ::pill-list)}
       (doall (map-indexed (partial render-project-card-tags filter-props) tags))])])
 
 (def nav-links
@@ -65,36 +88,37 @@
 
 (defn render-tag-pill
   [remove-tag-filter index tag]
-  [:li {:key index}
+  [:li {:key index :class (style.lib/classes ::tag-pill)}
    [link/component {:on-click (partial remove-tag-filter tag)
                     :text     (get data.portfolio/tags tag)
                     :icon     [:fas :times]}]])
 
+(defn filtered-projects
+  [tags-filter]
+  (filter (fn [project] (every? (:tags project) tags-filter))
+          data.portfolio/projects))
+
 (defn render
   [props]
-  (r/with-let [tag-filter        (r/atom #{})
+  (r/with-let [tag-filter        (r/atom #{:game :clj})
                filter-by-tag     (fn [tag & _] (r/rswap! tag-filter conj tag))
                remove-tag-filter (fn [tag] (swap! tag-filter disj tag))
-               clear-tag-filters (fn [] (swap! tag-filter (constantly #{})))
+               clear-tag-filters (fn [& _] (swap! tag-filter (constantly #{})))
                filter-props      {:filter-by-tag filter-by-tag}
-               visible-projects  (r/track (fn []
-                                            (let [tag-filter' @tag-filter]
-                                              (if (empty? tag-filter')
-                                                data.portfolio/projects
-                                                (do
-                                                  (js/console.log (clj->js {:tag-filter tag-filter'}))
-                                                  (filter (fn [{:keys [tags] :as project}]
-                                                            (js/console.log (clj->js project))
-                                                            (every? tags tag-filter'))
-                                                          data.portfolio/projects))))))]
+               visible-projects  (r/track (fn [] (let [tag-filter' @tag-filter]
+                                                   (if (empty? tag-filter')
+                                                     data.portfolio/projects
+                                                     (filtered-projects tag-filter')))))]
 
     [layout/component
      (assoc props :nav-links nav-links)
      (when-not (empty? @tag-filter)
-       [:<>
-        [:ul
-         (doall (map-indexed  (partial render-tag-pill remove-tag-filter) @tag-filter))]
-        [link/component {:on-click (fn [] (clear-tag-filters)) :text "Clear All Tags"}]])
+       [:div
+        [:ul {:class (style.lib/classes ::pill-list)}
+         (doall (map-indexed (partial render-tag-pill remove-tag-filter) @tag-filter))
+         [:li {:key "clear-all" :class (style.lib/classes ::tag-pill ::tag-clear-all)}
+          [link/component {:on-click clear-tag-filters
+                           :text     "Reset"}]]]])
      [:div {:class (style.lib/classes :ui/grid :ui/grid3)}
       (doall (map-indexed (partial render-project-card filter-props) @visible-projects))]]))
 

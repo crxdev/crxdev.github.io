@@ -242,8 +242,7 @@
 
    [:ui/grid {:align-items     :stretch
               :display         :flex
-              :flex-direction  :row
-              :flex-wrap       :wrap
+              :flex-flow       [[:row :wrap]]
               :justify-content :stretch}
     [:ui.grid/card {:border-radius "8px"
                     :box-shadow    "0px 0px 0px 12px rgba(0,0,0,0.2)"
@@ -253,7 +252,7 @@
                     :flex-basis    "35%"
                     :min-height    "20ch"}
 
-     [:ui.grid.card/title {:color       (=>color ::mustard)
+     [:ui.grid.card/title {:color       (=>color ::salmon)
                            :font-family font/code-stack}]
      [:ui.grid.card/hero {}]
      [:ui.grid.card/description {}]]]
