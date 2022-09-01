@@ -4,21 +4,23 @@
    [crx.portfolio.ui.component.link :as link]))
 
 (def tags
-  {:clj    "Clojure"
-   :cljs   "ClojureScript"
-   :docs   "Docs"
-   :elm    "Elm"
-   :game   "Games"
-   :go     "Go"
-   :js     "JavaScript"
-   :mobile "Mobile"
-   :node   "Node.js"
-   :oss    "Open Source"
-   :ruby   "Ruby"
-   :ts     "TypeScript"
-   :ui     "UI"
-   :ux     "UX"
-   :video  "Video"})
+  {:clj      "Clojure"
+   :cljs     "ClojureScript"
+   :docs     "Docs"
+   :elm      "Elm"
+   :game     "Games"
+   :go       "Go"
+   :js       "JavaScript"
+   :mobile   "Mobile"
+   :node     "Node.js"
+   :oss      "Open Source"
+   :protobuf "Protobuf"
+   :rpc      "RPC"
+   :ruby     "Ruby"
+   :ts       "TypeScript"
+   :ui       "UI"
+   :ux       "UX"
+   :video    "Video"})
 
 (def tag? (set (keys tags)))
 
@@ -45,7 +47,17 @@
 (s/def ::projects (s/coll-of ::project))
 
 (def projects
-  [{:title       "NuID Docs, SDKs"
+  [{:title "Protobuf RubyGem"
+    :image "img/portfolio/ruby-protobuf.png"
+    :description [[:p "Before google provided direct Ruby support for protocol
+                       buffers, I forked a fledgling protobuf gem, rewrote it, added RPC support,
+                       and released it into the world. As of 2022 there are over
+                       7 million gem downloads."]]
+    :links [{:href "https://rubygems.org/gems/protobuf/" :text "RubyGems" :icon [:fas :gem] :target "_blank"}
+            {:href "https://github.com/ruby-protobuf/protobuf" :text "Source" :icon [:fas :code] :target "_blank"}
+            {:href "https://rubydoc.info/gems/protobuf" :text "Docs" :icon [:fas :book-open] :target "_blank"}]
+    :tags #{:ruby :protobuf :rpc :oss}}
+   {:title       "NuID Docs, SDKs"
     :image       "img/portfolio/nuid-portal.png"
     :description [[:p "During the pandemic I rewrote "
                    [link/component {:href "https://portal.nuid.io/docs" :text "NuID's developer portal" :target "_blank"}]

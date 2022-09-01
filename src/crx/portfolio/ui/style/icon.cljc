@@ -9,6 +9,7 @@
    ["@fortawesome/free-solid-svg-icons/faBookOpen" :refer [faBookOpen]]
    ["@fortawesome/free-solid-svg-icons/faCode" :refer [faCode]]
    ["@fortawesome/free-solid-svg-icons/faGamepad" :refer [faGamepad]]
+   ["@fortawesome/free-solid-svg-icons/faGem" :refer [faGem]]
    ["@fortawesome/free-solid-svg-icons/faPalette" :refer [faPalette]]
    ["@fortawesome/free-solid-svg-icons/faTimes" :refer [faTimes]]
    #_["@fortawesome/free-brands-svg-icons/faNpm" :refer [faNpm]]
@@ -36,6 +37,7 @@
    faBookOpen
    faCode
    faGamepad
+   faGem
    faGithub
    faPalette
    faTimes
