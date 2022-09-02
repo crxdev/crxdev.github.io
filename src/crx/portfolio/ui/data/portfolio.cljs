@@ -10,13 +10,18 @@
    :elm      "Elm"
    :game     "Games"
    :go       "Go"
+   :graphql  "GraphQL"
    :js       "JavaScript"
    :mobile   "Mobile"
+   :newrelic "NewRelic"
    :node     "Node.js"
+   :npm      "NPM"
    :oss      "Open Source"
    :protobuf "Protobuf"
+   :rails    "Ruby on Rails"
    :rpc      "RPC"
    :ruby     "Ruby"
+   :statsd   "StatsD"
    :ts       "TypeScript"
    :ui       "UI"
    :ux       "UX"
@@ -47,26 +52,55 @@
 (s/def ::projects (s/coll-of ::project))
 
 (def projects
-  [{:title "Protobuf RubyGem"
-    :image "img/portfolio/ruby-protobuf.png"
+  [{:title       "Protobuf RubyGem"
+    :image       "img/portfolio/ruby-protobuf.png"
     :description [[:p "Before google provided direct Ruby support for protocol
-                       buffers, I forked a fledgling protobuf gem, rewrote it, added RPC support,
-                       and released it into the world. As of 2022 there are over
-                       7 million gem downloads."]]
-    :links [{:href "https://rubygems.org/gems/protobuf/" :text "RubyGems" :icon [:fas :gem] :target "_blank"}
-            {:href "https://github.com/ruby-protobuf/protobuf" :text "Source" :icon [:fas :code] :target "_blank"}
-            {:href "https://rubydoc.info/gems/protobuf" :text "Docs" :icon [:fas :book-open] :target "_blank"}]
-    :tags #{:ruby :protobuf :rpc :oss}}
+                       buffers, I forked a fledgling protobuf gem, rewrote it,
+                       added RPC support, and released it into the world. As of
+                       2022 there are over 7 million gem downloads."]]
+    :links       [{:href "https://rubygems.org/gems/protobuf/" :text "RubyGems" :icon [:fas :gem] :target "_blank"}
+                  {:href "https://github.com/ruby-protobuf/protobuf" :text "Source" :icon [:fas :code] :target "_blank"}
+                  {:href "https://rubydoc.info/gems/protobuf" :text "Docs" :icon [:fas :book-open] :target "_blank"}]
+    :tags        #{:ruby :protobuf :rpc :oss}}
    {:title       "NuID Docs, SDKs"
     :image       "img/portfolio/nuid-portal.png"
     :description [[:p "During the pandemic I rewrote "
                    [link/component {:href "https://portal.nuid.io/docs" :text "NuID's developer portal" :target "_blank"}]
                    " along with all of the documentation for how to intereact
-                     with the NuID ecosystem. I also ended up writing SDKs (essentially API
-                     wrappers) for Clojure, Ruby, Go, and Node.js."]]
+                     with the NuID ecosystem. I also ended up writing SDKs
+                     (essentially API wrappers) for Clojure, Ruby, Go, and
+                     Node.js."]]
     :links       [{:href "https://portal.nuid.io/docs" :icon [:fas :book-open] :text "NuID Developer Portal" :target "_blank"}
                   {:href "https://github.com/orgs/NuID/repositories?q=sdk&type=all&language=&sort=" :icon [:fas :code] :text "Source for SDKs" :target "_blank"}]
-    :tags        #{:oss :docs :ui :ux :ruby :clj :go :node}}
+    :tags        #{:oss :docs :ui :ux :ruby :clj :go :node :js}}
+   {:title       "NSA RubyGem"
+    :image       "img/portfolio/nsa-gem.png"
+    :description [[:p "Listen to Rails " [:code "ActiveSupport::Notifications"] " and deliver
+                       to a Statsd backend. This gem also supports writing your
+                       own custom collectors. Built-in support for:"
+                   [:ul
+                    [:li [:code "ActionController"]]
+                    [:li [:code "ActiveRecord"]]
+                    [:li [:code "ActiveSupportCache"]]
+                    [:li [:code "Sidekiq"]]]]]
+    :links       [{:href "https://rubygems.org/gems/nsa/" :text "RubyGems" :icon [:fas :gem] :target "_blank"}
+                  {:href "https://github.com/localshred/nsa" :icon [:fas :code] :text "Source" :target "_blank"}
+                  {:href "https://rubydoc.info/gems/nsa" :text "Docs" :icon [:fas :book-open] :target "_blank"}]
+    :tags        #{:ruby :rails :oss :statsd}}
+   {:title       "Apollo-NewRelic NPM Package"
+    :image       "img/portfolio/apollo-newrelic-npm.png"
+    :description [[:p "Creates a "
+                   [link/component {:href   "https://www.apollographql.com/"
+                                    :target "_blank"
+                                    :text   "NewRelic"}]
+                   " transaction with associated custom attributes on each
+                     graphql request/response, for use with the "
+                   [link/component {:href   "https://www.apollographql.com/"
+                                    :target "_blank"
+                                    :text   "Apollo GraphQL library"}] "."]]
+    :links       [{:href "https://www.npmjs.com/package/apollo-newrelic-extension" :text "NPM" :icon [:fas :gem] :target "_blank"}
+                  {:href "https://github.com/localshred/apollo-newrelic-extension" :icon [:fas :code] :text "Source" :target "_blank"}]
+    :tags        #{:js :npm :node :graphql :newrelic :oss}}
    {:title       "Elm Mastermind"
     :image       "img/portfolio/mastermind.png"
     :description [[:p "The game Mastermind (guess the color combination), written in elm."]]
