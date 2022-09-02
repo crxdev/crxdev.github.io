@@ -25,10 +25,11 @@
              :font-weight      200
              :min-height       "100vh"}
       [:header {:background (theme/=>color ::theme/white)
-                :flex       :auto
+                :flex       1
                 :margin     [[0 :auto]]
                 :padding    [["5vh" "2vw"]]
-                :text-align :center}
+                :text-align :center
+                :max-width  "350px"}
        [:nav {:font-family font/code-stack}
         [:ul {:font-size       "0.8em"
               :list-style-type :none
@@ -44,7 +45,7 @@
                      :flex-direction  :column
                      :justify-content :space-between
                      :height          "100%"
-                     :margin          [["5vh" "5vw"]]}
+                     :margin          [["5vh" "2vw"]]}
        [:>
         [:article {:flex 5}]]]
 
@@ -64,9 +65,10 @@
        [:>
         [:main {:flex-direction :column
                 :font-size      "2.5ch"}
-         [:header {:flex    0
-                   :padding [["2vh" 0]]
-                   :width   "100%"}
+         [:header {:flex      0
+                   :padding   [["2vh" 0]]
+                   :width     "100%"
+                   :max-width "100%"}
           [:nav
            [:ul {:align-items     :center
                  :display         :flex

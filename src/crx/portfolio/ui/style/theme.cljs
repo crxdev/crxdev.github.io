@@ -247,10 +247,23 @@
     [:ui.grid/card {:border-radius "8px"
                     :box-shadow    "0px 0px 0px 12px rgba(0,0,0,0.2)"
                     :font-size     "0.8em"
-                    :margin        "3ch"
+                    :margin        "2ch"
                     :padding       "2ch"
-                    :flex-basis    "35%"
                     :min-height    "20ch"}
+     [(at-media-not-desktop [[:& {:flex-basis "100%"}]])]
+     [(at-media-desktop [[:& {:flex-basis "100%"}]])] ;; 2 up
+     [(g.stylesheet/at-media {:screen    true
+                              :min-width (g.units/px+ tablet-width 250)}
+                             [:& {:max-width "38%"}])] ;; 3 up
+     [(g.stylesheet/at-media {:screen    true
+                              :min-width (g.units/px+ tablet-width 500)}
+                             [:& {:max-width "24%"}])] ;; 3 up
+     [(g.stylesheet/at-media {:screen    true
+                              :min-width (g.units/px+ tablet-width 1000)}
+                             [:& {:max-width "18%"}])] ;; 4 up
+     [(g.stylesheet/at-media {:screen    true
+                              :min-width (g.units/px+ tablet-width 1500)}
+                             [:& {:min-width "13%"}])] ;; 5 up
 
      [:ui.grid.card/title {:color       (=>color ::salmon)
                            :font-family font/code-stack}]
@@ -258,9 +271,8 @@
      [:ui.grid.card/description {}]]]
 
    [(at-media-desktop [[:ui/desktop-only :ui/not-mobile :ui/not-tablet {:display :inherit}]
-                       [:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]
-                       [:ui/grid [:ui.grid/card {:flex-basis "35%"}]]])]
-   [(at-media-not-desktop [[:ui/grid [:ui.grid/card {:flex-basis "100%"}]]])]
+                       [:ui/not-desktop :ui/mobile-only :ui/tablet-only {:display :none}]])]
+   [(at-media-not-desktop [])]
 
    [(at-media-tablet [[:ui/tablet-only :ui/not-mobile :ui/not-desktop {:display :inherit}]
                       [:body {:font-size "1.2rem"}]
