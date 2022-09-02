@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+npx shadow-cljs compile static
+node ./resources/bin/static.js

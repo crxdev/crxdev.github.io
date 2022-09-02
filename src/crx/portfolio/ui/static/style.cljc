@@ -5,6 +5,7 @@
    [crx.portfolio.ui.component.card :as component.card]
    [crx.portfolio.ui.component.link :as component.link]
    [crx.portfolio.ui.component.layout.holy-grail :as layout.holy-grail]
+   [crx.portfolio.ui.component.nav :as component.nav]
    [crx.portfolio.ui.page.portfolio :as page.portfolio]
    [crx.portfolio.ui.page.not-found :as page.not-found]
    [crx.portfolio.ui.style.theme :as theme]
@@ -20,6 +21,7 @@
    ::layout.holy-grail/styles
    ::page.portfolio/styles
    ::page.not-found/styles
+   ::component.nav/styles
    ::component.link/styles
    ::component.card/styles])
 

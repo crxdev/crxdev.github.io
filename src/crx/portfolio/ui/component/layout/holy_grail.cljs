@@ -1,13 +1,11 @@
 (ns crx.portfolio.ui.component.layout.holy-grail
   (:require
-   [crx.portfolio.ui.component.link :as link]
+   [crx.portfolio.ui.component.nav :as nav]
    [crx.portfolio.ui.style.font :as font]
-   [crx.portfolio.ui.style.lib :as style.lib]
    [crx.portfolio.ui.style.proto :as style.proto]
    [crx.portfolio.ui.style.theme :as theme]
    [garden.units :as g.units]
-   [garden.selectors :as g.sel]
-   [reagent.core :as r]))
+   [garden.selectors :as g.sel]))
 
 (defmethod style.proto/->styles ::styles
   [_props]
@@ -29,17 +27,7 @@
                 :margin     [[0 :auto]]
                 :padding    [["5vh" "2vw"]]
                 :text-align :center
-                :max-width  "350px"}
-       [:nav {:font-family font/code-stack}
-        [:ul {:font-size       "0.8em"
-              :list-style-type :none
-              :text-align      :right
-              :margin          0
-              :padding         0
-              :width           "100%"}
-         [:li {:margin [["1ch" 0]]}]]]
-       [:img#logo {}]]
-
+                :max-width  "350px"}]
       [:div#content {:display         :flex
                      :flex            2
                      :flex-direction  :column
@@ -48,7 +36,6 @@
                      :margin          [["5vh" "2vw"]]}
        [:>
         [:article {:flex 5}]]]
-
       [:footer {:color       (theme/=>color ::theme/purple)
                 :flex        1
                 :font-family font/code-stack
@@ -69,46 +56,15 @@
                    :padding   [["2vh" 0]]
                    :width     "100%"
                    :max-width "100%"}
-          [:nav
-           [:ul {:align-items     :center
-                 :display         :flex
-                 :flex-direction  :row
-                 :justify-content :center
-                 :margin          [[0 :auto]]}
-            [:li {:margin [["1ch" "2ch"]]}]]]
           [:img#logo {:max-height "10vh"
                       :max-width  "85%"}]]
-         [:div#content {:margin [["2vh" :auto]]}]]]]])]
-
-   [(theme/at-media-mobile
-     [[:div#app
-       [:>
-        [:main
-         [:header
-          [:nav
-           [::menu-btn {:display :inline-block}]
-           [:ul {:display    :none
-                 :text-align :center}
-            [(g.sel/& :ui/show) {:display :block}]]]]]]]])]])
-
-(defn render-nav-link
-  [index link-props]
-  [:li {:key index} [link/component link-props]])
+         [:div#content {:margin [["2vh" :auto]]}]]]]])]])
 
 (defn header
-  [{:keys [nav-links]}]
-  (r/with-let [nav-open? (r/atom nil)]
-    [:header
-     [:img#logo {:src "img/crxdev-logo.svg" :alt "crx//dev"}]
-     (when (seq nav-links)
-       [:nav
-        [:button
-         {:class    (style.lib/classes :ui/mobile-only ::menu-btn)
-          :on-click (fn [& _] (swap! nav-open? not))}
-         [theme/icon [:fas (if @nav-open? :angle-up :angle-down)]]
-         "Menu"]
-        [:ul {:class (style.lib/classes :ui/not-mobile {:ui/show (true? @nav-open?)})}
-         (doall (map-indexed render-nav-link nav-links))]])]))
+  [props]
+  [:header
+   [:img#logo {:src "img/crxdev-logo.svg" :alt "crx//dev"}]
+   [nav/component (select-keys props [:nav-links])]])
 
 (def copyright-year
   (let [start-year   2022
