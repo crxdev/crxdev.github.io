@@ -1,26 +1,25 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 color_red="\e[31m"
 color_green="\e[32m"
 color_yellow="\e[33m"
 color_reset="\e[39m"
 
-git status &> /dev/null
-[ $? -ne 0 ] && echo "${color_red}Not a git repository${color_reset}" && return
+git status &>/dev/null
+[ $? -ne 0 ] && echo "${color_red}Not a git repository${color_reset}" && exit 1
 
-git diff-index --quiet HEAD src --
-[ $? -ne 0 ] && echo "${color_red}You have local changes in src/ that haven't been commited${color_reset}" && return
+git diff-index --quiet HEAD src
+[ $? -ne 0 ] && echo "${color_red}You have local changes in src/ that haven't been commited${color_reset}" && exit 2
 
 yarn build
-[ $? -ne 0 ] && echo "${color_red}Build Failed${color_reset}" && return
+[ $? -ne 0 ] && echo "${color_red}Build Failed${color_reset}" && exit 3
 
 sha="$(git rev-parse --short HEAD)"
 echo "${color_yellow}Adding release commit for sha ${sha}${color_reset}"
 git add resources/public
 git commit -m "Release: ${sha}"
 
-echo "${color_yellow}Pushing to origin/main${color_reset}" && return
+echo "${color_yellow}Pushing to origin/main${color_reset}"
 git push origin main
 
-echo "${color_green}Done${color_reset}" && return
-
+echo "${color_green}Done${color_reset}"
