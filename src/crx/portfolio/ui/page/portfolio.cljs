@@ -22,17 +22,20 @@
                  :padding         0}
     [(g.sel/li ::tag-pill) {:background-color (theme/=>color ::theme/mustard)
                             :border-radius    "16px"
+                            :line-height      "2ch"
                             :margin           "0.5ch"}
-     [(g.sel/& ::tag-clear-all) {:background :none}
-      [:a {:color (theme/=>color ::theme/light-gray)
-           :font-size "0.6em"}]]
+     [(g.sel/& ::tag-reset) {:background :none}
+      [:a {:color     (theme/=>color ::theme/light-gray)
+           :font-size "0.6em"}
+       [:&:hover {:color (theme/=>color ::theme/dark-gray)}]]]
      [:ui/icon-left {:color (theme/=>color ::theme/dark-gray)}]
      [:a {:border      :none
           :color       (theme/=>color ::theme/dark-gray)
           :font-family font/code-stack
           :font-size   "0.8em"
           :padding     "2ch"
-          :white-space :nowrap}]]]
+          :white-space :nowrap}]
+     [:&:hover {:background-color (theme/=>color ::theme/salmon)}]]]
 
    [::card-image {:width "100%"}]
    [:ui.grid.card/links {:list-style-type :none
@@ -45,12 +48,12 @@
   [index link-props]
   [:li {:key index} [link/component link-props]])
 
-(defn render-project-card-tags
-  [{:keys [filter-by-tag]} index tag]
-  [:li {:key index
+(defn render-project-card-tag
+  [{:keys [filter-by-tag]} index [tag tag-name]]
+  [:li {:key   index
         :class (style.lib/classes ::tag-pill)}
    [link/component {:on-click (fn [] (filter-by-tag tag))
-                    :text     (tag data.portfolio/tags)}]])
+                    :text     tag-name}]])
 
 (defn render-project-card
   [filter-props index {:keys [image title description video links tags]}]
@@ -79,7 +82,10 @@
       (doall (map-indexed render-project-card-link links))])
    (when (seq tags)
      [:ul {:class (style.lib/classes :ui.grid.card/tags ::pill-list)}
-      (doall (map-indexed (partial render-project-card-tags filter-props) tags))])])
+      (doall (->> tags
+                  (map (fn [tag] [tag (get data.portfolio/tags tag)]))
+                  (sort-by second)
+                  (map-indexed (partial render-project-card-tag filter-props))))])])
 
 (def nav-links
   [{:href (router/path-for ::router/portfolio) :icon [:fas :palette] :text "portfolio"}
@@ -87,10 +93,10 @@
    {:href "https://github.com/localshred" :icon [:fab :github] :text "localshred"}])
 
 (defn render-tag-pill
-  [remove-tag-filter index tag]
+  [remove-tag-filter index [tag tag-name]]
   [:li {:key index :class (style.lib/classes ::tag-pill)}
    [link/component {:on-click (partial remove-tag-filter tag)
-                    :text     (get data.portfolio/tags tag)
+                    :text     tag-name
                     :icon     [:fas :times]}]])
 
 (defn filtered-projects
@@ -115,10 +121,13 @@
      (when-not (empty? @tag-filter)
        [:div
         [:ul {:class (style.lib/classes ::pill-list)}
-         (doall (map-indexed (partial render-tag-pill remove-tag-filter) @tag-filter))
-         [:li {:key "clear-all" :class (style.lib/classes ::tag-pill ::tag-clear-all)}
+         (doall (->> @tag-filter
+                     (map (fn [tag] [tag (get data.portfolio/tags tag)]))
+                     (sort-by second)
+                     (map-indexed (partial render-tag-pill remove-tag-filter))))
+         [:li {:key "reset-filter" :class (style.lib/classes ::tag-pill ::tag-reset)}
           [link/component {:on-click clear-tag-filters
-                           :text     "Reset"}]]]])
+                           :text     "Reset Filters"}]]]])
      [:div {:class (style.lib/classes :ui/grid :ui/grid3)}
       (doall (map-indexed (partial render-project-card filter-props) @visible-projects))]]))
 
