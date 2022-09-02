@@ -6,9 +6,11 @@
 (def tags
   {:clj      "Clojure"
    :cljs     "ClojureScript"
+   :clojars  "Clojars"
    :docs     "Docs"
    :elm      "Elm"
    :game     "Games"
+   :fp       "Functional Programming"
    :go       "Go"
    :graphql  "GraphQL"
    :js       "JavaScript"
@@ -73,6 +75,30 @@
     :links       [{:href "https://portal.nuid.io/docs" :icon [:fas :book-open] :text "NuID Developer Portal" :target "_blank"}
                   {:href "https://github.com/orgs/NuID/repositories?q=sdk&type=all&language=&sort=" :icon [:fas :code] :text "Source for SDKs" :target "_blank"}]
     :tags        #{:oss :docs :ui :ux :ruby :clj :go :node :js}}
+   {:title       "Clamda Clojure lib"
+    :image       "img/portfolio/clamda.png"
+    :description [[:p "Clamda is what happens when you spend a lot of time
+                    writing functional JavaScript with the "
+                   [link/component {:href "https://ramdajs.com/" :text [:code "Ramda"] :target "_blank"}]
+                   " library and miss some of the magical curry goodness that
+                    Clojure decided wasn't for you. Thanks, Rich."]]
+    :links       [{:href "https://clojars.org/localshred.clamda/clamda" :text "Clojars" :icon [:fas :cubes] :target "_blank"}
+                  {:href "https://github.com/localshred/clamda" :icon [:fas :code] :text "Source" :target "_blank"}]
+    :tags        #{:clj :cljs :clojars :oss :fp}}
+   {:title       "Apollo-NewRelic NPM Package"
+    :image       "img/portfolio/apollo-newrelic-npm.png"
+    :description [[:p "Creates a "
+                   [link/component {:href   "https://www.apollographql.com/"
+                                    :target "_blank"
+                                    :text   "NewRelic"}]
+                   " transaction with associated custom attributes on each
+                     graphql request/response, for use with the "
+                   [link/component {:href   "https://www.apollographql.com/"
+                                    :target "_blank"
+                                    :text   "Apollo GraphQL library"}] "."]]
+    :links       [{:href "https://www.npmjs.com/package/apollo-newrelic-extension" :text "NPM" :icon [:fab :npm] :target "_blank"}
+                  {:href "https://github.com/localshred/apollo-newrelic-extension" :icon [:fas :code] :text "Source" :target "_blank"}]
+    :tags        #{:js :npm :node :graphql :newrelic :oss}}
    {:title       "NSA RubyGem"
     :image       "img/portfolio/nsa-gem.png"
     :description [[:p "Listen to Rails " [:code "ActiveSupport::Notifications"] " and deliver
@@ -87,20 +113,6 @@
                   {:href "https://github.com/localshred/nsa" :icon [:fas :code] :text "Source" :target "_blank"}
                   {:href "https://rubydoc.info/gems/nsa" :text "Docs" :icon [:fas :book-open] :target "_blank"}]
     :tags        #{:ruby :rails :oss :statsd}}
-   {:title       "Apollo-NewRelic NPM Package"
-    :image       "img/portfolio/apollo-newrelic-npm.png"
-    :description [[:p "Creates a "
-                   [link/component {:href   "https://www.apollographql.com/"
-                                    :target "_blank"
-                                    :text   "NewRelic"}]
-                   " transaction with associated custom attributes on each
-                     graphql request/response, for use with the "
-                   [link/component {:href   "https://www.apollographql.com/"
-                                    :target "_blank"
-                                    :text   "Apollo GraphQL library"}] "."]]
-    :links       [{:href "https://www.npmjs.com/package/apollo-newrelic-extension" :text "NPM" :icon [:fas :gem] :target "_blank"}
-                  {:href "https://github.com/localshred/apollo-newrelic-extension" :icon [:fas :code] :text "Source" :target "_blank"}]
-    :tags        #{:js :npm :node :graphql :newrelic :oss}}
    {:title       "Elm Mastermind"
     :image       "img/portfolio/mastermind.png"
     :description [[:p "The game Mastermind (guess the color combination), written in elm."]]

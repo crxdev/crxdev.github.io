@@ -2,12 +2,14 @@
   (:require
    ["@fortawesome/fontawesome-svg-core" :as fa]
    ["@fortawesome/free-brands-svg-icons/faGithub" :refer [faGithub]]
+   ["@fortawesome/free-brands-svg-icons/faNpm" :refer [faNpm]]
    ["@fortawesome/free-brands-svg-icons/faYoutube" :refer [faYoutube]]
    ["@fortawesome/free-solid-svg-icons/faAngleDown" :refer [faAngleDown]]
    ["@fortawesome/free-solid-svg-icons/faAngleUp" :refer [faAngleUp]]
    ["@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare" :refer [faArrowUpRightFromSquare]]
    ["@fortawesome/free-solid-svg-icons/faBookOpen" :refer [faBookOpen]]
    ["@fortawesome/free-solid-svg-icons/faCode" :refer [faCode]]
+   ["@fortawesome/free-solid-svg-icons/faCubes" :refer [faCubes]]
    ["@fortawesome/free-solid-svg-icons/faGamepad" :refer [faGamepad]]
    ["@fortawesome/free-solid-svg-icons/faGem" :refer [faGem]]
    ["@fortawesome/free-solid-svg-icons/faPalette" :refer [faPalette]]
@@ -36,9 +38,11 @@
    faArrowUpRightFromSquare
    faBookOpen
    faCode
+   faCubes
    faGamepad
    faGem
    faGithub
+   faNpm
    faPalette
    faTimes
    faYoutube
