@@ -1,6 +1,6 @@
 (ns crx.portfolio.ui.page.portfolio
   (:require
-   [crx.portfolio.ui.component.layout.holy-grail :as layout]
+   [crx.portfolio.ui.component.layout :as layout]
    [crx.portfolio.ui.component.link :as link]
    [crx.portfolio.ui.data.portfolio :as data.portfolio]
    [crx.portfolio.ui.page.proto :as page.proto]
@@ -88,7 +88,8 @@
                   (map-indexed (partial render-project-card-tag filter-props))))])])
 
 (def nav-links
-  [{:href (router/path-for ::router/portfolio) :icon [:fas :palette] :text "portfolio"}
+  [{:href (router/path-for ::router/services) :icon [:fas :user-astronaut] :text "services"}
+   {:href (router/path-for ::router/portfolio) :icon [:fas :palette] :text "portfolio"}
    {:href "https://github.com/crxdev" :icon [:fab :github] :text "crxdev"}
    {:href "https://github.com/localshred" :icon [:fab :github] :text "localshred"}])
 
@@ -105,7 +106,7 @@
           data.portfolio/projects))
 
 (defn render
-  [props]
+  [_props]
   (r/with-let [tag-filter        (r/atom #{})
                filter-by-tag     (fn [tag & _] (r/rswap! tag-filter conj tag))
                remove-tag-filter (fn [tag] (swap! tag-filter disj tag))
@@ -117,7 +118,7 @@
                                                      (filtered-projects tag-filter')))))]
 
     [layout/component
-     (assoc props :nav-links nav-links)
+     {:nav {:selected ::router/portfolio}}
      (when-not (empty? @tag-filter)
        [:div
         [:ul {:class (style.lib/classes ::pill-list)}

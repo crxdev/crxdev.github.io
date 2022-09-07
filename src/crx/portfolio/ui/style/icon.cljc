@@ -14,6 +14,7 @@
    ["@fortawesome/free-solid-svg-icons/faGem" :refer [faGem]]
    ["@fortawesome/free-solid-svg-icons/faPalette" :refer [faPalette]]
    ["@fortawesome/free-solid-svg-icons/faTimes" :refer [faTimes]]
+   ["@fortawesome/free-solid-svg-icons/faUserAstronaut" :refer [faUserAstronaut]]
    #_["@fortawesome/free-brands-svg-icons/faNpm" :refer [faNpm]]
    #_["@fortawesome/free-regular-svg-icons/faFileAlt" :refer [faFileAlt]]
    #_["@fortawesome/free-regular-svg-icons/faFilePdf" :refer [faFilePdf]]
@@ -45,6 +46,7 @@
    faNpm
    faPalette
    faTimes
+   faUserAstronaut
    faYoutube
    #_faAngleRight
    #_faCheck

@@ -4,10 +4,11 @@
    [crx.portfolio.ui.style.lib :as style.lib]
    [crx.portfolio.ui.component.card :as component.card]
    [crx.portfolio.ui.component.link :as component.link]
-   [crx.portfolio.ui.component.layout.holy-grail :as layout.holy-grail]
+   [crx.portfolio.ui.component.layout :as layout]
    [crx.portfolio.ui.component.nav :as component.nav]
    [crx.portfolio.ui.page.portfolio :as page.portfolio]
    [crx.portfolio.ui.page.not-found :as page.not-found]
+   [crx.portfolio.ui.page.services :as page.services]
    [crx.portfolio.ui.style.theme :as theme]
    [crx.portfolio.ui.style.proto :as style.proto])
   #?(:clj (:import clojure.lang.Keyword)))
@@ -18,9 +19,10 @@
 
 (defonce styles
   [::theme/styles
-   ::layout.holy-grail/styles
+   ::layout/styles
    ::page.portfolio/styles
    ::page.not-found/styles
+   ::page.services/styles
    ::component.nav/styles
    ::component.link/styles
    ::component.card/styles])

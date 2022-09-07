@@ -14,7 +14,8 @@
 (defn component
   [{:keys [class icon target text] :as props}]
   (let [external?    (= "_blank" target)
-        classes      (apply style.lib/classes (into [::link] class))
+        class-list   (into [::link] class)
+        classes      (apply style.lib/classes class-list)
         anchor-props (-> props
                          (assoc :class classes)
                          (dissoc :icon :text))]

@@ -1,6 +1,6 @@
 (ns crx.portfolio.ui.page.not-found
   (:require
-   [crx.portfolio.ui.component.layout.holy-grail :as layout]
+   [crx.portfolio.ui.component.layout :as layout]
    [crx.portfolio.ui.page.proto :as page.proto]
    [crx.portfolio.ui.router :as router]
    [crx.portfolio.ui.style.proto :as style.proto]))

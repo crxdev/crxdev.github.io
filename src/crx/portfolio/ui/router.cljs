@@ -12,6 +12,7 @@
 (def routes
   ["/"
    [["" ::portfolio]
+    ["services" ::services]
     [true ::not-found]]])
 
 (def route? keyword?)

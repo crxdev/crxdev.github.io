@@ -1,11 +1,10 @@
-(ns crx.portfolio.ui.component.layout.holy-grail
+(ns crx.portfolio.ui.component.layout
   (:require
    [crx.portfolio.ui.component.nav :as nav]
    [crx.portfolio.ui.style.font :as font]
    [crx.portfolio.ui.style.proto :as style.proto]
    [crx.portfolio.ui.style.theme :as theme]
-   [garden.units :as g.units]
-   [garden.selectors :as g.sel]))
+   [garden.units :as g.units]))
 
 (defmethod style.proto/->styles ::styles
   [_props]
@@ -64,7 +63,7 @@
   [props]
   [:header
    [:img#logo {:src "img/crxdev-logo.svg" :alt "crx//dev"}]
-   [nav/component (select-keys props [:nav-links])]])
+   [nav/component (:nav props)]])
 
 (def copyright-year
   (let [start-year   2022
